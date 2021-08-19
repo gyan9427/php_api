@@ -7,4 +7,5 @@ $dotenv = new DotEnv(__DIR__);
 $dotenv->load();
 
 
-echo getenv('OKTAAUDIENCE');
+$dbConnection = (new DatabaseConnector())->getConnection();
+
