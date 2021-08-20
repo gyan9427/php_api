@@ -1,5 +1,5 @@
 <?php
-namespace Src\TableGateways;
+namespace Src\TableGateWays;
 
 class PersonGateway{
     private $db=null;
@@ -17,7 +17,7 @@ class PersonGateway{
 
         try{
             $statement = $this->db->query($statement);
-            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             return $result;
         }catch(\PDOException $e){
             exit($e->getMessage());
@@ -31,7 +31,7 @@ class PersonGateway{
 
         try{
             $statement = $this->db->prepare($statement);
-            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             return $result;
         }catch(\PDOException $e){
             exit($e->getMessage());

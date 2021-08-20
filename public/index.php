@@ -1,6 +1,9 @@
 <?php
+
 require "../bootstrap.php";
-use Src\PersonController;
+use Src\Controller\PersonController;
+
+use Src\System\DatabaseConnector;
 
 header("Access-Control-Allow-Origin:*");
 header("Content-type:json/application,utf8");
@@ -19,7 +22,6 @@ if($uri[1] !== 'person'){
 }
 //https://developer.okta.com/blog/2019/03/08/simple-rest-api-php
 //user ID must be number:
-$userId = null;
 
 if(isset($uri[2])){
     $userId = (int) $uri[2];
@@ -28,6 +30,6 @@ if(isset($uri[2])){
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 //pass the request method and user ID to the PersonController
-
+$dbConnetcion = (new DatabaseConnector())->getConnection();
 $controller = new PersonController($dbConnetcion,$requestMethod,$userId);
 $controller->processRequest();

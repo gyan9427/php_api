@@ -1,5 +1,6 @@
 <?php
 require 'bootstrap.php';
+ini_set('display_errors',1);
 
 $statement = <<<EOS
     CREATE TABLE IF NOT EXISTS person (
@@ -33,6 +34,8 @@ EOS;
 
 try {
     $createTable = $dbConnection->exec($statement);
+    
 }catch(\PDOException $e){
+    
     exit($e->getMessage());
 }

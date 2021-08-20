@@ -1,7 +1,7 @@
 <?php
 namespace Src\Controller;
 
-use Src\TableGateways\PersonGateway;
+use Src\TableGateWays\PersonGateway;
 
 class PersonController{
     private $db;
@@ -15,7 +15,6 @@ class PersonController{
         $this->db = $db;
         $this->requestMethod =$requestMethod;
         $this->userId = $userId;
-
         $this->personGateway = new PersonGateway($db);
     }
 
