@@ -26,11 +26,12 @@ class PersonGateway{
 
     public function find($id){
         $statement = "
-        SELECT * FROM person WHERE id = ?
+        SELECT id,firstname,lastname FROM person WHERE id = ?;
         ";
 
         try{
             $statement = $this->db->prepare($statement);
+            $statement->execute(array($id));
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             return $result;
         }catch(\PDOException $e){
