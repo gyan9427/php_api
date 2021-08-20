@@ -21,7 +21,7 @@ if($uri[1] !== 'person'){
 //user ID must be number:
 $userId = null;
 
-if(isset($uri[2]) && is_numeric($uri[2])){
+if(isset($uri[2])){
     $userId = (int) $uri[2];
 }
 
