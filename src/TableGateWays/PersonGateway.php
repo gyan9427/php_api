@@ -81,17 +81,21 @@ class PersonGateway{
         }
     } 
 
-    public function update(Array $arr){
+    public function update($id,Array $input){
+        $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+        //correction made in statement - removed ()
         $statement = "
-        UPDATE person SET (
+        UPDATE person SET 
             firstname = :firstname, lastname = :lastname, firstparent_id =:firstparent_id, secondparent_id = :secondparent_id
-            )";
+             WHERE id = :id ;";
 
         try{
 
             $statement = $this->db->prepare($statement);
-            
+            //correction id in the array statement id added
             $statement->execute(Array(
+                'id'=> (int) $id,
                 'firstname'=> $input['firstname'],
                 'lastname'=>$input['lastname'],
                 'firstparent_id'=>$input['firstparent_id']??null,
