@@ -92,7 +92,7 @@ class PersonController{
     }
 
     private function deleteUser($id)
-    {
+    {   
         $result = $this->personGateway->find($id);
         if(! $result){
             $this->notFoundResponse();

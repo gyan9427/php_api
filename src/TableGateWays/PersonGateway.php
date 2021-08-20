@@ -39,9 +39,11 @@ class PersonGateway{
         }
     }
     
-    public function insert(Array $arr){
+    public function insert(Array $input){
+        $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+         
         $statement = "
-        INSERT INTO person (firstname, lastname, firstparent_id, secondparent_id) VALUES (:firstname, :lastname, :firstparent_id, :secondparent_id)
+        INSERT INTO person(firstname, lastname, firstparent_id, secondparent_id) VALUES (:firstname, :lastname, :firstparent_id, :secondparent_id)
         ";
         try{
         $statement =  $this->db->prepare($statement);
@@ -52,6 +54,8 @@ class PersonGateway{
                 'secondparent_id' => $input['secondparent_id'] ?? null,
             ));
 
+        $this->db->lastInsertId();
+
         return $statement->rowCount();
         }catch(\PDOException $e){
             exit($e->getMessage());
@@ -59,13 +63,15 @@ class PersonGateway{
     }
 
     public function delete($id){
+    
         $statement = "
-        DELETE * FROM person WHERE id = ?
+        DELETE FROM person WHERE id = :id;
         ";
 
         try{
             $statement = $this->db->prepare($statement);
-
+            //bind parameter correction
+            $statement->bindParam(':publisher_id', $id, \PDO::PARAM_INT);
             $statement->execute(Array('id'=>$id));
 
             return $statement->rowCount();
