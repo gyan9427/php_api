@@ -25,7 +25,7 @@ function obtainToken($issuer, $clientId, $clientSecret, $scope) {
     $token = base64_encode("$clientId:$clientSecret");
     $payload = http_build_query([
         'grant_type' => 'client_credentials',
-        'scope'      => 'okta.clients.read'
+        'scope'      => "myid"
     ]);
     echo($token);
     echo("Token accessed \n");
@@ -45,6 +45,8 @@ function obtainToken($issuer, $clientId, $clientSecret, $scope) {
     $response = curl_exec($ch);
     var_dump($response);
     $response = json_decode($response, true);
+
+    
     if (! isset($response['access_token'])
         || ! isset($response['token_type'])) {
         exit('failed, exiting.');
